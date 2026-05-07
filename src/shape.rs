@@ -45,7 +45,7 @@ impl Shape {
         let dist = between_point.distance(closest_point);
 
         // Distance is within threshold, between_point is redundant
-        if dist <= 0.3 {
+        if dist <= 0.7 {
             self.points.pop();
         }
 

@@ -18,7 +18,7 @@ pub fn draw_point_system(
         }
 
         for point in points.iter() {
-            gizmos.circle_2d(*point, 5.0, Color::srgb(1.0, 0.0, 0.0));
+            gizmos.circle_2d(*point, 3.0, Color::srgb(1.0, 0.0, 0.0));
         }
     }
 }
