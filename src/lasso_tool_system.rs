@@ -13,6 +13,7 @@ pub fn add_lasso_points_system(
         if let Some(pos) = window.cursor_position() {
             let (camera, camera_transform) = *camera;
             if let Ok(world_pos) = camera.viewport_to_world_2d(camera_transform, pos) {
+                println!("adding point");
                 shape.0.add_point(world_pos);
             }
         }

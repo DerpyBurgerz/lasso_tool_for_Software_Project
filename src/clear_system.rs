@@ -8,6 +8,7 @@ pub fn clear_system(
     shapes: Query<(Entity, &Shape)>,
 ) {
     if keyboard_input.just_pressed(Escape) {
+
         for (entity, _) in shapes {
             commands.entity(entity).clear();
         }

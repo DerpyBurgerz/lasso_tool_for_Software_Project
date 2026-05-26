@@ -23,7 +23,6 @@ fn main() {
             (
                 add_new_shape_system.before(add_lasso_points_system),
                 add_lasso_points_system,
-                add_new_shape_system,
                 mouse_released_system,
                 draw_point_system,
                 clear_system,
