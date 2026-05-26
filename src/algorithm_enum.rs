@@ -1,6 +1,5 @@
 use bevy::input::ButtonInput;
-use bevy::input::keyboard::KeyboardInput;
-use bevy::prelude::{Button, Res};
+use bevy::prelude::Res;
 use bevy_egui::egui::Key;
 
 pub enum PointAlgorithm {

@@ -50,7 +50,7 @@ impl Shape {
         }
 
         // Only add if it's far enough from the last point to avoid excessive density
-        if self.points.last().map_or(true, |p| p.distance(new_point) > 5.0) {
+        if self.points.last().is_none_or(|p| p.distance(new_point) > 5.0) {
             self.points.push(new_point);
         }
     }

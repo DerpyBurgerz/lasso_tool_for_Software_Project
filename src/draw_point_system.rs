@@ -6,7 +6,7 @@ pub fn draw_point_system(
     shapes: Query<&mut Shape>) {
 
     for mut shape in shapes {
-        let is_closed = shape.is_closed.clone();
+        let is_closed = shape.is_closed;
         let points = &mut shape.points;
         if points.len() > 1 {
             for i in 0..points.len() - 1 {

@@ -9,15 +9,14 @@ pub fn add_lasso_points_system(
     camera: Single<(&Camera, &GlobalTransform), With<Camera2d>>,
     mut shape: Single<(&mut Shape, &IsCurrentlyBeingDrawn)>,
 ) {
-    if mouse.pressed(MouseButton::Left) {
-        if let Some(pos) = window.cursor_position() {
+    if mouse.pressed(MouseButton::Left)
+        && let Some(pos) = window.cursor_position() {
             let (camera, camera_transform) = *camera;
             if let Ok(world_pos) = camera.viewport_to_world_2d(camera_transform, pos) {
                 println!("adding point");
                 shape.0.add_point(world_pos);
             }
         }
-    }
 }
 
 pub fn mouse_released_system(
@@ -42,6 +41,5 @@ pub fn add_new_shape_system(
     if mouse.just_pressed(MouseButton::Left) {
         println!("add new shape");
         commands.spawn((Shape::default(), IsCurrentlyBeingDrawn));
-        return;
     }
 }
