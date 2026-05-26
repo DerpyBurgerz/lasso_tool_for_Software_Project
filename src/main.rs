@@ -7,6 +7,7 @@ mod lasso_tool_system;
 mod shape;
 mod clear_system;
 mod right_panel;
+mod algorithm_enum;
 
 use crate::lasso_tool_system::*;
 use crate::draw_point_system::*;
