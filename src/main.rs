@@ -1,6 +1,7 @@
 extern crate core;
 use bevy::prelude::*;
 use bevy_egui::*;
+use crate::algorithm_enum::{change_algorithm_system, PointAlgorithm};
 
 mod draw_point_system;
 mod lasso_tool_system;
@@ -18,6 +19,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(EguiPlugin::default())
+        .init_resource::<PointAlgorithm>()
         .add_systems(Startup, setup)
         .add_systems(
             Update,
@@ -26,6 +28,7 @@ fn main() {
                 add_lasso_points_system,
                 mouse_released_system,
                 draw_point_system,
+                change_algorithm_system,
                 clear_system,
             ),
         )
