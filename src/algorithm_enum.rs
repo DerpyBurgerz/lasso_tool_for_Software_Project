@@ -1,34 +1,37 @@
-use crate::algorithm_enum::PointAlgorithm::{Alg1, CTR};
+use crate::algorithm_enum::PointAlgorithm::{Meh, Alg1, CTR};
 use bevy::input::ButtonInput;
 use bevy::math::Vec2;
 use bevy::prelude::{KeyCode, Res, ResMut, Resource};
-use crate::cumulative_triangle_routine::CumulativeTriangleRoutine;
+use crate::cumulative_triangle_routine::{cumulative_triangle_routine_step, CumulativeTriangleRoutine};
 use crate::perpendicular_distance_algorithm::PerpendicularDistanceAlgorithm;
 
-#[derive(Debug, Clone, Resource)]
+#[derive(Debug, Clone, Resource, Default)]
 pub enum PointAlgorithm {
+    #[default]
+    Meh,
     Alg1,
     CTR {
         ctr: CumulativeTriangleRoutine
     },
 }
 impl Algorithm for PointAlgorithm {
-    fn simplify(&self, points: &mut Vec<Vec2>) {
+    fn simplify(self, points: &mut Vec<Vec2>) -> PointAlgorithm {
         match self {
-            Alg1 => PerpendicularDistanceAlgorithm(points),
-            CTR =>todo!(),
+            Meh => self,
+            Alg1 => {
+                PerpendicularDistanceAlgorithm(points);
+                self
+            },
+            CTR{ctr} => {
+                CTR{
+                    ctr: cumulative_triangle_routine_step(points, ctr)}
+            }
         }
     }
 }
 
 pub trait Algorithm {
-    fn simplify(&self, points: &mut Vec<Vec2>);
-}
-
-impl Default for PointAlgorithm {
-    fn default() -> Self {
-        Alg1
-    }
+    fn simplify(self, points: &mut Vec<Vec2>) -> PointAlgorithm;
 }
 pub fn change_algorithm_system(
     keyboard_input: Res<ButtonInput<KeyCode>>,

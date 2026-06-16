@@ -10,15 +10,19 @@ pub fn add_lasso_points_system(
     window: Single<&Window>,
     camera: Single<(&Camera, &GlobalTransform), With<Camera2d>>,
     mut shape: Single<(&mut Shape, &IsCurrentlyBeingDrawn)>,
-    algorithm: Res<PointAlgorithm>,
+    mut algorithm: ResMut<PointAlgorithm>,
 ) {
     if mouse.pressed(MouseButton::Left)
         && let Some(pos) = window.cursor_position() {
         let (camera, camera_transform) = *camera;
         if let Ok(world_pos) = camera.viewport_to_world_2d(camera_transform, pos) {
             println!("adding point");
-            let algorithm = algorithm.into_inner().clone();
-            shape.0.add_point(world_pos, Some(algorithm));
+            // let algorithm = algorithm.into_inner().clone();
+            let next_state = shape.0.add_point(world_pos, Some(algorithm.clone()));
+            if let Some(next_state) = next_state{
+                *algorithm = next_state;
+            }
+
         }
     }
 }

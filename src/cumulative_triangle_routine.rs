@@ -21,7 +21,8 @@ impl Default for CumulativeTriangleRoutine {
     }
 }
 
-pub fn cumulative_triangle_routine_step(points: Vec<Vec2>, data: CumulativeTriangleRoutine) -> (Vec<Vec2>, CumulativeTriangleRoutine) {
+pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: CumulativeTriangleRoutine) -> CumulativeTriangleRoutine {
+
 
     todo!()
 }
