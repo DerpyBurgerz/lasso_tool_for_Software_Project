@@ -1,4 +1,5 @@
 use bevy::math::Vec2;
+use bevy::render::render_resource::encase::private::RuntimeSizedArray;
 use crate::triangle_area::triangle_area;
 
 #[derive(Clone, Debug)]
@@ -23,38 +24,30 @@ impl Default for CumulativeTriangleRoutine {
 }
 
 pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: CumulativeTriangleRoutine) -> CumulativeTriangleRoutine {
-    // add input[0] to result array
+    if points.len() <= 2 {
+        return data;
+    }
+
+    let area = triangle_area(points[data.first],
+                             points[data.middle],
+                             points[data.last]
+    );
+
+    // Check If it should retain points or not
+    let mut temp_area = area + data.temp_area;
+
+    if temp_area > data.threshhold_area {
+        temp_area = 0.0;
+        result.push(input[middle]);
+        //result.push(input[last]);
+        first = middle;
+        middle = first + 1;
+        last = first + 2;
+    }
+    else {
+        middle += 1;
+        last += 1;
+    }
+
     todo!()
-    // let mut result = Vec::new();
-    // result.push(input[0]);
-    //
-    //
-    // let mut first = 0;
-    // let mut middle = 1;
-    // let mut last = 2;
-    // let mut temp_area = 0f64;
-    // while last < input.len() {
-    //     // Calculate the area of the current triad
-    //     // of points
-    //     let area = triangle_area(input[first],
-    //                              input[middle],
-    //                              input[last]);
-    //     // Check If it should retain points or not
-    //     temp_area += area;
-    //     if temp_area > area_threshold {
-    //         temp_area = 0.0;
-    //         result.push(input[middle]);
-    //         //result.push(input[last]);
-    //         first = middle;
-    //         middle = first + 1;
-    //         last = first + 2;
-    //     }
-    //     else {
-    //         middle += 1;
-    //         last += 1;
-    //     }
-    // }
-    // result
-    //
-    // todo!()
 }
