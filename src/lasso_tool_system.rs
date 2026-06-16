@@ -36,7 +36,7 @@ pub fn mouse_released_system(
         println!("shape finished");
         let (entity, mut shape, _) = shape.into_inner();
         shape.is_closed = true;
-        shape.points = second_simple_simplify(&shape.points, 20.0);
+        // shape.points = second_simple_simplify(&shape.points, 20.0);
         // shape.points = simple_simplify(&shape.points, 20.0);
         commands
             .entity(entity)

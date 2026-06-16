@@ -40,6 +40,9 @@ pub fn change_algorithm_system(
     if keyboard_input.just_pressed(KeyCode::KeyQ) {
         *current_algorithm = Alg1;
     }
+    if keyboard_input.just_pressed(KeyCode::KeyW) {
+        *current_algorithm = Alg1;
+    }
     if keyboard_input.just_pressed(KeyCode::KeyE) {
         *current_algorithm = CTR {
             ctr: CumulativeTriangleRoutine::default()

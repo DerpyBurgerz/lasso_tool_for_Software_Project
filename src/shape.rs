@@ -6,7 +6,6 @@ use crate::algorithm_enum::{Algorithm, PointAlgorithm};
 pub struct Shape {
     pub is_closed: bool,
     pub points: Vec<Vec2>,
-    pub optimisation_algorithm: Option<PointAlgorithm>
 }
 
 #[derive(Component)]
