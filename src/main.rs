@@ -9,8 +9,10 @@ mod shape;
 mod clear_system;
 mod right_panel;
 mod algorithm_enum;
-mod PerpendicularDistanceAlgorithm;
+mod perpendicular_distance_algorithm;
 mod mouse_simulation;
+mod cumulative_triangle_routine;
+mod triangle_area;
 
 use crate::lasso_tool_system::*;
 use crate::draw_point_system::*;

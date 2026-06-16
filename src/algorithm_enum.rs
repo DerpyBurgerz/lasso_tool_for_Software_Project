@@ -1,19 +1,22 @@
-use crate::algorithm_enum::PointAlgorithm::{Alg1, CTRSimplification};
+use crate::algorithm_enum::PointAlgorithm::{Alg1, CTR};
 use bevy::input::ButtonInput;
 use bevy::math::Vec2;
 use bevy::prelude::{KeyCode, Res, ResMut, Resource};
-use crate::PerpendicularDistanceAlgorithm::PerpendicularDistanceAlgorithm;
+use crate::cumulative_triangle_routine::CumulativeTriangleRoutine;
+use crate::perpendicular_distance_algorithm::PerpendicularDistanceAlgorithm;
 
 #[derive(Debug, Clone, Resource)]
 pub enum PointAlgorithm {
     Alg1,
-    CTRSimplification,
+    CTR {
+        ctr: CumulativeTriangleRoutine
+    },
 }
 impl Algorithm for PointAlgorithm {
     fn simplify(&self, points: &mut Vec<Vec2>) {
         match self {
             Alg1 => PerpendicularDistanceAlgorithm(points),
-            CTRSimplification => todo!(),
+            CTR =>todo!(),
         }
     }
 }
@@ -35,6 +38,8 @@ pub fn change_algorithm_system(
         *current_algorithm = Alg1;
     }
     if keyboard_input.just_pressed(KeyCode::KeyE) {
-        *current_algorithm = CTRSimplification;
+        *current_algorithm = CTR {
+            ctr: CumulativeTriangleRoutine::default()
+        };
     }
 }

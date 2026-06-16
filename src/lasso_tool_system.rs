@@ -3,6 +3,7 @@ use bevy::camera::{Camera, Camera2d};
 use bevy::input::ButtonInput;
 use bevy::prelude::*;
 use crate::algorithm_enum::{PointAlgorithm};
+use crate::triangle_area::triangle_area;
 
 pub fn add_lasso_points_system(
     mouse: Res<ButtonInput<MouseButton>>,
@@ -51,7 +52,7 @@ pub fn simple_simplify(input: &Vec<Vec2>, area_threshold: f64) -> Vec<Vec2> {
     while last < input.len() {
         // Calculate the area of the current triad
         // of points
-        let area = get_area(input[first],
+        let area = triangle_area(input[first],
                             input[middle],
                             input[last]);
         // Check If it should retain points or not
@@ -85,7 +86,7 @@ pub fn second_simple_simplify(input: &Vec<Vec2>, area_threshold: f64) -> Vec<Vec
     while last < input.len() {
         // Calculate the area of the current triad
         // of points
-        let area = get_area(input[first],
+        let area = triangle_area(input[first],
                             input[middle],
                             input[last]);
         // Check If it should retain points or not
@@ -104,16 +105,6 @@ pub fn second_simple_simplify(input: &Vec<Vec2>, area_threshold: f64) -> Vec<Vec
         }
     }
     result
-}
-
-fn get_area(p1: Vec2, p2: Vec2, p3: Vec2) -> f64 {
-    let p1 = p1.as_dvec2();
-    let p2 = p2.as_dvec2();
-    let p3 = p3.as_dvec2();
-    let (x1, y1) = (p2.x - p1.x, p2.y - p1.y);
-    let (x2, y2) = (p3.x - p1.x, p3.y - p1.y);
-    let cross = x1 * y2 - y1 * x2;
-    cross.abs() * 0.5
 }
 
 pub fn add_new_shape_system(

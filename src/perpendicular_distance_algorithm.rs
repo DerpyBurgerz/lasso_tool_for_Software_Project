@@ -1,7 +1,6 @@
 use bevy::math::Vec2;
 
 pub fn PerpendicularDistanceAlgorithm(points: &mut Vec<Vec2>) {
-    return;
     if points.len() < 3 {
         return;
     }

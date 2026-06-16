@@ -1,10 +1,12 @@
 use bevy::math::Vec2;
 use bevy::prelude::Component;
+use crate::algorithm_enum::PointAlgorithm;
 
 #[derive(Component, Default, Clone)]
 pub struct Shape {
     pub is_closed: bool,
     pub points: Vec<Vec2>,
+    pub optimisation_algorithm: Option<PointAlgorithm>
 }
 
 #[derive(Component)]
