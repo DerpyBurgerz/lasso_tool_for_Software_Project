@@ -9,10 +9,15 @@ mod shape;
 mod clear_system;
 mod right_panel;
 mod algorithm_enum;
+mod perpendicular_distance_algorithm;
+mod mouse_simulation;
+mod cumulative_triangle_routine;
+mod triangle_area;
 
 use crate::lasso_tool_system::*;
 use crate::draw_point_system::*;
 use crate::clear_system::clear_system;
+use crate::mouse_simulation::check_s_and_mouse_position;
 use crate::right_panel::*;
 
 fn main() {
@@ -25,6 +30,7 @@ fn main() {
             Update,
             (
                 add_new_shape_system.before(add_lasso_points_system),
+                check_s_and_mouse_position,
                 add_lasso_points_system,
                 mouse_released_system,
                 draw_point_system,
