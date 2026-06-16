@@ -33,7 +33,7 @@ pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: Cumulative
 
     // Check If it should retain points or not
     let temp_area = area + data.temp_area;
-    return if temp_area > data.threshhold_area {
+    if temp_area > data.threshhold_area {
         // leave the points in the list, they are fine
         // I don't think we have to do anything?
         CumulativeTriangleRoutine {
@@ -48,5 +48,5 @@ pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: Cumulative
             temp_area,
             ..data
         }
-    };
+    }
 }
