@@ -14,7 +14,7 @@ impl Default for CumulativeTriangleRoutine {
         CumulativeTriangleRoutine{
             first: 0,
             temp_area: 0.0,
-            threshhold_area: 10.0,
+            threshhold_area: 5.0,
         }
     }
 }

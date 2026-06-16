@@ -1,7 +1,7 @@
 use bevy::camera::Camera;
 use bevy::input::*;
 use bevy::math::Vec2;
-use bevy::prelude::{Commands, GlobalTransform, KeyCode, Query, Res, Window, With};
+use bevy::prelude::{Commands, GlobalTransform, KeyCode, Query, Res, ResMut, Window, With};
 use bevy::window::PrimaryWindow;
 use crate::algorithm_enum::PointAlgorithm;
 use crate::lasso_tool_system::simple_simplify;
@@ -11,6 +11,7 @@ pub fn check_s_and_mouse_position(
     keyboard: Res<ButtonInput<KeyCode>>,
     q_window: Query<&Window, With<PrimaryWindow>>,
     q_camera: Query<(&Camera, &GlobalTransform), With<Camera>>,
+    point_algorithm: ResMut<PointAlgorithm>,
     mut commands: Commands,
 ) {
     if !keyboard.just_pressed(KeyCode::KeyS){
@@ -30,13 +31,14 @@ pub fn check_s_and_mouse_position(
     };
 
     let mut shape = Shape::default();
+    let mut algorithm = Some(point_algorithm.to_owned());
     for point in circle_points(cursor_pos_world, 200f32, 300) {
-        shape.add_point(point, None::<PointAlgorithm>);
+        if let Some(next_state_algorithm) = shape.add_point(point, algorithm.clone()){
+            algorithm = Some(next_state_algorithm);
+        }
     }
     shape.is_closed = true;
     
-    // shape.points = second_simple_simplify(&shape.points, 10.0);
-    shape.points = simple_simplify(&shape.points, 10.0);
     commands.spawn(shape);
 
 }

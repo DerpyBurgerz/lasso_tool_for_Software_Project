@@ -1,5 +1,9 @@
 extern crate core;
+
+use bevy::camera::CameraOutputMode;
+use bevy::camera::visibility::RenderLayers;
 use bevy::prelude::*;
+use bevy::render::render_resource::BlendState;
 use bevy_egui::*;
 use crate::algorithm_enum::{change_algorithm_system, PointAlgorithm};
 
@@ -7,7 +11,7 @@ mod draw_point_system;
 mod lasso_tool_system;
 mod shape;
 mod clear_system;
-mod right_panel;
+mod left_panel;
 mod algorithm_enum;
 mod perpendicular_distance_algorithm;
 mod mouse_simulation;
@@ -18,7 +22,7 @@ use crate::lasso_tool_system::*;
 use crate::draw_point_system::*;
 use crate::clear_system::clear_system;
 use crate::mouse_simulation::check_s_and_mouse_position;
-use crate::right_panel::*;
+use crate::left_panel::*;
 
 fn main() {
     App::new()
@@ -38,10 +42,12 @@ fn main() {
                 clear_system,
             ),
         )
-        .add_systems(EguiPrimaryContextPass, right_panel)
+        .add_systems(EguiPrimaryContextPass, left_panel)
         .run();
 }
 
-fn setup(mut commands: Commands) {
+fn setup(
+    mut commands: Commands,
+) {
     commands.spawn(Camera2d);
 }

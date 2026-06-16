@@ -3,7 +3,7 @@ use bevy::input::ButtonInput;
 use bevy::math::Vec2;
 use bevy::prelude::{KeyCode, Res, ResMut, Resource};
 use crate::cumulative_triangle_routine::{cumulative_triangle_routine_step, CumulativeTriangleRoutine};
-use crate::perpendicular_distance_algorithm::PerpendicularDistanceAlgorithm;
+use crate::perpendicular_distance_algorithm::perpendicular_distance_algorithm;
 
 #[derive(Debug, Clone, Resource, Default)]
 pub enum PointAlgorithm {
@@ -19,7 +19,7 @@ impl Algorithm for PointAlgorithm {
         match self {
             Meh => self,
             Alg1 => {
-                PerpendicularDistanceAlgorithm(points);
+                perpendicular_distance_algorithm(points);
                 self
             },
             CTR{ctr} => {
