@@ -6,6 +6,7 @@ use crate::point_optimisation_algorithm::perpendicular_distance_algorithm::perpe
 use bevy::input::ButtonInput;
 use bevy::math::Vec2;
 use bevy::prelude::{KeyCode, Res, ResMut, Resource};
+use crate::point_optimisation_algorithm::minimum_distance_algorithm::minimum_distance_algorithm;
 
 #[derive(Debug, Clone, Resource, Default)]
 pub enum PointAlgorithm {
@@ -35,8 +36,7 @@ impl Algorithm for PointAlgorithm {
                 ctr: cumulative_triangle_routine_step(points, ctr),
             },
             MinimumDistance { minimum_distance } => {
-                // implement this function
-                todo!();
+                minimum_distance_algorithm(points, minimum_distance);
                 self
             }
         }
@@ -65,7 +65,7 @@ pub fn change_algorithm_system(
     }
     if keyboard_input.just_pressed(KeyCode::KeyR) {
         *current_algorithm = MinimumDistance{
-            minimum_distance: 1.0,
+            minimum_distance: 15.0,
         };
     }
 }
