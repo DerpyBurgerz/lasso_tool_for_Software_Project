@@ -1,30 +1,43 @@
-use crate::algorithm_enum::PointAlgorithm::{Meh, Alg1, CTR};
+use crate::algorithm_enum::PointAlgorithm::{CTR, Meh, MinimumDistance, PerpendicularDistance};
+use crate::cumulative_triangle_routine::{
+    CumulativeTriangleRoutine, cumulative_triangle_routine_step,
+};
+use crate::perpendicular_distance_algorithm::perpendicular_distance_algorithm;
 use bevy::input::ButtonInput;
 use bevy::math::Vec2;
 use bevy::prelude::{KeyCode, Res, ResMut, Resource};
-use crate::cumulative_triangle_routine::{cumulative_triangle_routine_step, CumulativeTriangleRoutine};
-use crate::perpendicular_distance_algorithm::perpendicular_distance_algorithm;
 
 #[derive(Debug, Clone, Resource, Default)]
 pub enum PointAlgorithm {
     #[default]
     Meh,
-    Alg1,
+    PerpendicularDistance {
+        perpendicular_distance: f32,
+    },
     CTR {
-        ctr: CumulativeTriangleRoutine
+        ctr: CumulativeTriangleRoutine,
+    },
+    MinimumDistance {
+        minimum_distance: f32,
     },
 }
 impl Algorithm for PointAlgorithm {
     fn simplify(self, points: &mut Vec<Vec2>) -> PointAlgorithm {
         match self {
             Meh => self,
-            Alg1 => {
-                perpendicular_distance_algorithm(points);
+            PerpendicularDistance {
+                perpendicular_distance,
+            } => {
+                perpendicular_distance_algorithm(points, perpendicular_distance);
                 self
+            }
+            CTR { ctr } => CTR {
+                ctr: cumulative_triangle_routine_step(points, ctr),
             },
-            CTR{ctr} => {
-                CTR{
-                    ctr: cumulative_triangle_routine_step(points, ctr)}
+            MinimumDistance { minimum_distance } => {
+                // implement this function
+                todo!();
+                self
             }
         }
     }
@@ -38,14 +51,16 @@ pub fn change_algorithm_system(
     mut current_algorithm: ResMut<PointAlgorithm>,
 ) {
     if keyboard_input.just_pressed(KeyCode::KeyQ) {
-        *current_algorithm = Alg1;
+        *current_algorithm = Meh
     }
     if keyboard_input.just_pressed(KeyCode::KeyW) {
-        *current_algorithm = Alg1;
+        *current_algorithm = PerpendicularDistance {
+            perpendicular_distance: 0.7,
+        };
     }
     if keyboard_input.just_pressed(KeyCode::KeyE) {
         *current_algorithm = CTR {
-            ctr: CumulativeTriangleRoutine::default()
+            ctr: CumulativeTriangleRoutine::default(),
         };
     }
 }

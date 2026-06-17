@@ -3,7 +3,8 @@ use crate::shape::*;
 
 pub fn draw_point_system(
     mut gizmos: Gizmos,
-    shapes: Query<&mut Shape>) {
+    shapes: Query<&mut Shape>
+) {
 
     for mut shape in shapes {
         let is_closed = shape.is_closed;

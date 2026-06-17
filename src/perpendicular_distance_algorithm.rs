@@ -1,6 +1,6 @@
 use bevy::math::Vec2;
 
-pub fn perpendicular_distance_algorithm(points: &mut Vec<Vec2>) {
+pub fn perpendicular_distance_algorithm(points: &mut Vec<Vec2>, perpendicular_distance: f32) {
     if points.len() < 3 {
         return;
     }
@@ -38,7 +38,7 @@ pub fn perpendicular_distance_algorithm(points: &mut Vec<Vec2>) {
     let dist = between_point.distance(closest_point);
 
     // Distance is within the threshold, between_point is redundant
-    if dist <= 0.7 {
+    if dist <= perpendicular_distance {
         points.pop();
     }
 
