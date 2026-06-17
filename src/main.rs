@@ -1,9 +1,6 @@
 extern crate core;
 
-use bevy::camera::CameraOutputMode;
-use bevy::camera::visibility::RenderLayers;
 use bevy::prelude::*;
-use bevy::render::render_resource::BlendState;
 use bevy_egui::*;
 use crate::algorithm_enum::{change_algorithm_system, PointAlgorithm};
 
@@ -13,10 +10,9 @@ mod shape;
 mod clear_system;
 mod left_panel;
 mod algorithm_enum;
-mod perpendicular_distance_algorithm;
 mod mouse_simulation;
-mod cumulative_triangle_routine;
 mod triangle_area;
+mod point_optimisation_algorithm;
 
 use crate::lasso_tool_system::*;
 use crate::draw_point_system::*;

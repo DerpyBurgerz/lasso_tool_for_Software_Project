@@ -4,7 +4,6 @@ use bevy::math::Vec2;
 use bevy::prelude::{Commands, GlobalTransform, KeyCode, Query, Res, ResMut, Window, With};
 use bevy::window::PrimaryWindow;
 use crate::algorithm_enum::PointAlgorithm;
-use crate::lasso_tool_system::simple_simplify;
 use crate::shape::{Shape};
 
 pub fn check_s_and_mouse_position(

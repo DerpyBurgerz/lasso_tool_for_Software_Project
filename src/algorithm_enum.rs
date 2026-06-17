@@ -1,8 +1,8 @@
 use crate::algorithm_enum::PointAlgorithm::{CTR, Meh, MinimumDistance, PerpendicularDistance};
-use crate::cumulative_triangle_routine::{
+use crate::point_optimisation_algorithm::cumulative_triangle_routine::{
     CumulativeTriangleRoutine, cumulative_triangle_routine_step,
 };
-use crate::perpendicular_distance_algorithm::perpendicular_distance_algorithm;
+use crate::point_optimisation_algorithm::perpendicular_distance_algorithm::perpendicular_distance_algorithm;
 use bevy::input::ButtonInput;
 use bevy::math::Vec2;
 use bevy::prelude::{KeyCode, Res, ResMut, Resource};
@@ -61,6 +61,11 @@ pub fn change_algorithm_system(
     if keyboard_input.just_pressed(KeyCode::KeyE) {
         *current_algorithm = CTR {
             ctr: CumulativeTriangleRoutine::default(),
+        };
+    }
+    if keyboard_input.just_pressed(KeyCode::KeyR) {
+        *current_algorithm = MinimumDistance{
+            minimum_distance: 1.0,
         };
     }
 }
