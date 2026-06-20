@@ -14,6 +14,7 @@ pub enum PointAlgorithm {
     Meh,
     PerpendicularDistance {
         perpendicular_distance: f32,
+        last_two_points: [Vec2; 2],
     },
     CTR {
         ctr: CumulativeTriangleRoutine,
@@ -28,9 +29,12 @@ impl Algorithm for PointAlgorithm {
             Meh => self,
             PerpendicularDistance {
                 perpendicular_distance,
+                last_two_points,
             } => {
-                perpendicular_distance_algorithm(points, perpendicular_distance);
-                self
+                PerpendicularDistance {
+                    perpendicular_distance,
+                    last_two_points: perpendicular_distance_algorithm(points, perpendicular_distance, last_two_points),
+                }
             }
             CTR { ctr } => CTR {
                 ctr: cumulative_triangle_routine_step(points, ctr),
@@ -55,7 +59,8 @@ pub fn change_algorithm_system(
     }
     if keyboard_input.just_pressed(KeyCode::KeyW) {
         *current_algorithm = PerpendicularDistance {
-            perpendicular_distance: 0.7,
+            perpendicular_distance: 1.0,
+            last_two_points: [Default::default(), Default::default()],
         };
     }
     if keyboard_input.just_pressed(KeyCode::KeyE) {
