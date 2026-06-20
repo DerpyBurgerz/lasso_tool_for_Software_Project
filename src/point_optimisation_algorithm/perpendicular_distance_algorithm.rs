@@ -1,21 +1,12 @@
 use bevy::math::Vec2;
 
+// This is not the same as I described in the report.
+// It does work relatively nice, but I do not fully understand it.
 pub fn perpendicular_distance_algorithm(points: &mut Vec<Vec2>, perpendicular_distance: f32) {
     if points.len() < 3 {
         return;
     }
     let new_point = points.pop().unwrap();
-    if points.is_empty() {
-        points.push(new_point);
-        return;
-    }
-
-    if points.len() < 2 {
-        if points.last().unwrap().distance(new_point) > 5.0 {
-            points.push(new_point);
-        }
-        return;
-    }
 
     let line_point = points[points.len() - 2];
     let between_point = points[points.len() - 1];
