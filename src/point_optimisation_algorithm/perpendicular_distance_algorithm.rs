@@ -1,5 +1,4 @@
 use bevy::math::Vec2;
-
 pub fn perpendicular_distance_algorithm(
     points: &mut Vec<Vec2>,
     perpendicular_distance: f32,
