@@ -4,7 +4,7 @@ use crate::triangle_area::triangle_area;
 
 #[derive(Clone, Debug)]
 pub struct CumulativeTriangleRoutine {
-    pub first: usize,
+    pub anchor: usize,
     pub cumulative_area: f64,
     pub threshhold_area: f64,
 }
@@ -12,7 +12,7 @@ pub struct CumulativeTriangleRoutine {
 impl Default for CumulativeTriangleRoutine {
     fn default() -> Self {
         CumulativeTriangleRoutine{
-            first: 0,
+            anchor: 0,
             cumulative_area: 0.0,
             threshhold_area: 5.0,
         }
@@ -26,7 +26,7 @@ pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: Cumulative
 
     let last_i = points.len()-1;
     let area = triangle_area(
-        points[data.first],
+        points[data.anchor],
         points[last_i-1],
         points[last_i]
     );
@@ -37,7 +37,7 @@ pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: Cumulative
         // leave the points in the list, they are fine
         // I don't think we have to do anything?
         CumulativeTriangleRoutine {
-            first: last_i - 1,
+            anchor: last_i - 1,
             cumulative_area: 0.0,
             threshhold_area: data.threshhold_area,
         }
