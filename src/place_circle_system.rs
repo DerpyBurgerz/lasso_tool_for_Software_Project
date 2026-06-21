@@ -30,10 +30,10 @@ pub fn check_s_and_mouse_position(
     };
 
     let mut shape = Shape::default();
-    let mut algorithm = Some(point_algorithm.to_owned());
-    for point in circle_points(cursor_pos_world, 200f32, 300) {
-        if let Some(next_state_algorithm) = shape.add_point(point, algorithm.clone()){
-            algorithm = Some(next_state_algorithm);
+    let mut algorithm = point_algorithm.to_owned();
+    for point in circle_points(cursor_pos_world, 200f32, 300){
+        if let Some(next_state_algorithm) =shape.add_point(point, Some(algorithm.clone())){
+            algorithm = next_state_algorithm;
         }
     }
     shape.is_closed = true;
