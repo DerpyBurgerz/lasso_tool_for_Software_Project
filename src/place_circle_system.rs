@@ -31,7 +31,7 @@ pub fn check_s_and_mouse_position(
 
     let mut shape = Shape::default();
     let mut algorithm = Some(point_algorithm.to_owned());
-    for point in circle_points(cursor_pos_world, 200f32, 300) {
+    for point in circle_points(cursor_pos_world, 600f32, 800) {
         if let Some(next_state_algorithm) = shape.add_point(point, algorithm.clone()){
             algorithm = Some(next_state_algorithm);
         }

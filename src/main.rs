@@ -10,14 +10,14 @@ mod shape;
 mod clear_system;
 mod left_panel;
 mod algorithm_enum;
-mod mouse_simulation;
+mod place_circle_system;
 mod triangle_area;
 mod point_optimisation_algorithm;
 
 use crate::lasso_tool_system::*;
 use crate::draw_point_system::*;
 use crate::clear_system::clear_system;
-use crate::mouse_simulation::check_s_and_mouse_position;
+use crate::place_circle_system::check_s_and_mouse_position;
 use crate::left_panel::*;
 
 fn main() {
