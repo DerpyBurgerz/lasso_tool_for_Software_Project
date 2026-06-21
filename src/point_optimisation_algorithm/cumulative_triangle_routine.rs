@@ -42,7 +42,6 @@ pub fn cumulative_triangle_routine_step(points: &mut Vec<Vec2>, data: Cumulative
             threshhold_area: data.threshhold_area,
         }
     } else {
-        points[last_i - 2] = points[last_i - 1];
         points[last_i - 1] = points.pop().unwrap();
         CumulativeTriangleRoutine {
             cumulative_area: temp_area,
